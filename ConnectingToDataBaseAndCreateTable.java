@@ -20,7 +20,7 @@ class ConnectingToDataBaseAndCreateTable{
         } catch (SQLException e) {
             // SQLState is 5 characters code which tells exact reason for the SQL error.
             if (e.getSQLState().equals("42P07")) {
-                System.out.println("Table 'students' already exists.");
+                System.out.println("Table = students already exists in the database.");
             } else {
                 System.out.println("SQL Exception: " + e.getMessage());
             }
@@ -36,3 +36,4 @@ class ConnectingToDataBaseAndCreateTable{
         }
     }
 }
+

@@ -1,0 +1,81 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CRUDOperationsUsingStatement {
+    private static final String url = "jdbc:postgresql://localhost:5432/databasename";
+    private static final String uName = "postgres";
+    private static final String pass = "Raheel#123";
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        Connection con = null;
+        Statement st = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, uName, pass);
+            st = con.createStatement();
+
+            //Inserting Data into students table which is already created in our ConnectingToDataBaseAndCreateTable.java
+
+            while (true) {
+                System.out.println("Enter the id : ");
+                int id = s.nextInt();
+                System.out.println("Enter the name : ");
+                String name = s.next();
+                System.out.println("Enter the marks : ");
+                int marks = s.nextInt();
+                String query = String.format("INSERT INTO students(id, name, marks) VALUES (%d, '%s', %d)", id, name, marks);
+                int rows = st.executeUpdate(query);
+                if (rows > 0) {
+                    System.out.println("Data inserted succesfully");
+                } else {
+                    System.out.println("Insertion failed");
+                }
+                System.out.println("Enter the choice (Y|N)? : ");
+                String choice = s.next();
+                if (choice.equalsIgnoreCase("N")) {
+                    break;
+                }
+            }
+            // Updating data in the students table
+
+            System.out.println("Enter the Student name whose marks need to be changed : ");
+            String sname = s.next();
+            System.out.println("Enter updated marks : ");
+            int updatedMarks = s.nextInt();
+            String udpateQuery = String.format("UPDATE students SET marks=%d where name ='%s' ", updatedMarks, sname);
+            int updated = st.executeUpdate(udpateQuery);
+            if (updated > 0) {
+                System.out.println("Data updated succesfully");
+            } else {
+                System.out.println("Updation failed");
+            }
+
+            // Deleting data from the students table
+
+            System.out.println("Enter the Student id to delete that student record : ");
+            int deleteId = s.nextInt();
+            String deleteQuery = String.format("DELETE from students where id = %d", deleteId);
+            int deleted = st.executeUpdate(deleteQuery);
+            if (deleted > 0) {
+                System.out.println("Data deleted succesfully");
+            } else {
+                System.out.println("Deletion failed");
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("PostgreSQL JDBC Driver not found.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error occurred while closing resources: " + e.getMessage());
+            }
+        }
+    }
+}

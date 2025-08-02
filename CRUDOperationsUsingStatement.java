@@ -1,13 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class CRUDOperationsUsingStatement {
-    private static final String url = "jdbc:postgresql://localhost:5432/databasename";
+    private static final String url = "jdbc:postgresql://localhost:5432/demo";
     private static final String uName = "postgres";
-    private static final String pass = "Raheel#123";
+    private static final String pass = "Raheel@786";
 
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -64,6 +61,14 @@ public class CRUDOperationsUsingStatement {
                 System.out.println("Data deleted succesfully");
             } else {
                 System.out.println("Deletion failed");
+            }
+
+            String allRecords = "SELECT * FROM students";
+            ResultSet rs = st.executeQuery(allRecords);
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") +
+                        " " + rs.getString("name") +
+                        " " + rs.getInt("marks"));
             }
         } catch (ClassNotFoundException e) {
             System.out.println("PostgreSQL JDBC Driver not found.");

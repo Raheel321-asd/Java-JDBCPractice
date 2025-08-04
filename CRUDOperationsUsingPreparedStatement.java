@@ -2,9 +2,9 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class CRUDOperationsUsingPreparedStatement {
-    private static final String url = "jdbc:postgresql://localhost:5432/demo";
+    private static final String url = "jdbc:postgresql://localhost:5432/databasename";
     private static final String uName = "postgres";
-    private static final String pass = "Raheel@786";
+    private static final String pass = "password";
 
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -102,3 +102,4 @@ public class CRUDOperationsUsingPreparedStatement {
     }
 
 }
+

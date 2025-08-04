@@ -33,7 +33,8 @@ public class CRUDOperationsUsingStatement {
                 }
                 System.out.println("Enter the choice (Y|N)? : ");
                 String choice = s.next();
-                if (choice.equalsIgnoreCase("N")) {
+                 char ch = choice.charAt(0);
+                if (ch!='Y'&& ch!='y') {
                     break;
                 }
             }
@@ -84,3 +85,4 @@ public class CRUDOperationsUsingStatement {
         }
     }
 }
+
